@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>BasicValidatorLibrary</id>
+    <version>1.0.0</version>
+    <authors>BasicValidatorLibrary</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="7fc776645b3c9cb4c85848c45fcffcd07505f74c" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.AspNetCore.Http" version="2.3.9" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.4" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net8.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\bin\Release\net8.0\BasicValidatorLibrary.dll" target="lib\net8.0\BasicValidatorLibrary.dll" />
+  </files>
+</package>

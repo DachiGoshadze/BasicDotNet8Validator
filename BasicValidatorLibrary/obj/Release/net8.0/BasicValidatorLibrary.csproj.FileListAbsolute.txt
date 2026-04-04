@@ -1,0 +1,13 @@
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\bin\Release\net8.0\BasicValidatorLibrary.deps.json
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\bin\Release\net8.0\BasicValidatorLibrary.dll
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\bin\Release\net8.0\BasicValidatorLibrary.pdb
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.csproj.AssemblyReference.cache
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.AssemblyInfoInputs.cache
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.AssemblyInfo.cs
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.csproj.CoreCompileInputs.cache
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.sourcelink.json
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.dll
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\refint\BasicValidatorLibrary.dll
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\BasicValidatorLibrary.pdb
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Release\net8.0\ref\BasicValidatorLibrary.dll

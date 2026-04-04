@@ -2,9 +2,10 @@
 using BasicValidatorLibrary.Implementations;
 using BasicValidatorLibrary.Interfaces;
 
-namespace BasicValidatorLibrary;
+namespace BasicValidatorLibrary.Abstracts;
 
-public abstract class CustomValidator<T>
+public abstract class CustomValidator<T> : IValidator 
+    where T : class 
 {
     private List<IRule<T>> Rules { get; set; } = [];
 
@@ -37,5 +38,15 @@ public abstract class CustomValidator<T>
                 throw new Exception("Validation failed: " + result.errorMessage);
             }
         }
+    }
+
+    public async Task ValidateAsync(object value)
+    {
+        var castedValue = value as T;
+        if (castedValue == null)
+        {
+            throw new InvalidOperationException($"Value must be of type {typeof(T).Name}");
+        }
+        await ValidateAndThrowAsync(castedValue);
     }
 }

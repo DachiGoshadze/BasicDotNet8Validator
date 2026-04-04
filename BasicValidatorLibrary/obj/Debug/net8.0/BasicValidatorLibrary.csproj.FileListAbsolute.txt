@@ -10,3 +10,4 @@ C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Deb
 C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Debug\net8.0\refint\BasicValidatorLibrary.dll
 C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Debug\net8.0\BasicValidatorLibrary.pdb
 C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Debug\net8.0\ref\BasicValidatorLibrary.dll
+C:\Users\dachi\RiderProjects\BasicValidatorLibrary\BasicValidatorLibrary\obj\Debug\net8.0\BasicValidatorLibrary.sourcelink.json

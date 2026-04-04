@@ -1,22 +1,12 @@
-﻿// namespace Validator;
-//
-// public class ValidatorManager(ICollection<CustomValidator<T>> validators)
-// {
-//     public bool Validate<T>(T obj)
-//     {
-//         // var isValid = true;
-//         // foreach (var validator in validators)
-//         // {
-//         //     if (validator.CanValidate(typeof(T).ToString()))
-//         //     {
-//         //         var validateRes = validator.Validate(obj);
-//         //         if (!validateRes.Item1)
-//         //         {
-//         //             isValid = false;
-//         //             Console.WriteLine($"Validation failed: {validateRes.Item2}");
-//         //         }
-//         //     }
-//         // }
-//         // return isValid;
-//     }
-// }
+﻿namespace BasicValidatorLibrary;
+
+public class ValidatorManager
+{
+    private Dictionary<string, Type> Validators { get; set; } = new();
+    
+    public void AddValidator(string key, Type type)
+    {
+        Validators[key] = type;
+    }
+    public Dictionary<string, Type> GetValidators() => Validators;
+}
