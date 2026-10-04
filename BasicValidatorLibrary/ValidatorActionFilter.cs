@@ -36,7 +36,7 @@ public class ValidatorActionFilter(IOptions<BasicValidatorOptions> opt, Validato
                 .GetRequiredService(_validators[argument.Value.GetType().ToString()]);
             try
             {
-                await validator.ValidateAsync(argument.Value);
+                await validator.BaseValidateAsync(argument.Value);
                 await DeepValidation(argument.Value, context);
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ public class ValidatorActionFilter(IOptions<BasicValidatorOptions> opt, Validato
 
             var validator = (IValidator)context.HttpContext.RequestServices
                 .GetRequiredService(_validators[property.PropertyType.ToString()]);
-            await validator.ValidateAsync(propertyValue);
+            await validator.BaseValidateAsync(propertyValue);
             await DeepValidation(propertyValue, context);
         }
     }

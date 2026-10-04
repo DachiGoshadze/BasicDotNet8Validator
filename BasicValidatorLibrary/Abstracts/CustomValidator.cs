@@ -22,7 +22,7 @@ public abstract class CustomValidator<T> : IValidator
             var result = await rule.ProcessValidateAsync(value);
             if (!result.isValid)
             {
-                return (result.isValid, result.errorMessage);
+                return (result.isValid, !string.IsNullOrEmpty(result.errorMessage) ? result.errorMessage : string.Empty);
             }
         }
         return (true, string.Empty);
@@ -35,12 +35,12 @@ public abstract class CustomValidator<T> : IValidator
             var result = await rule.ProcessValidateAsync(value);
             if (!result.isValid)
             {
-                throw new Exception(string.IsNullOrEmpty(result.errorMessage) ? "Validation failed: " + result.errorMessage : string.Empty);
+                throw new Exception(!string.IsNullOrEmpty(result.errorMessage) ? "Validation failed: " + result.errorMessage : string.Empty);
             }
         }
     }
 
-    public async Task ValidateAsync(object? value)
+    public async Task BaseValidateAsync(object? value)
     {
         var castedValue = value as T;
         if (castedValue == null)
