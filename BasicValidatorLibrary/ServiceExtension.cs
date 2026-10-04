@@ -35,6 +35,7 @@ public static class ServiceExtension
         }
 
         serviceCollection.AddSingleton(validationManager);
+        serviceCollection.AddOptions<BasicValidatorOptions>();
         if (opt.UseGlobalControllerValidation)
         {
             serviceCollection.Configure<MvcOptions>(options => { options.Filters.Add<ValidatorActionFilter>(); });

@@ -35,7 +35,7 @@ public abstract class CustomValidator<T> : IValidator
             var result = await rule.ProcessValidateAsync(value);
             if (!result.isValid)
             {
-                throw new Exception("Validation failed: " + result.errorMessage);
+                throw new Exception(string.IsNullOrEmpty(result.errorMessage) ? "Validation failed: " + result.errorMessage : string.Empty);
             }
         }
     }
