@@ -40,7 +40,7 @@ public abstract class CustomValidator<T> : IValidator
         }
     }
 
-    public async Task ValidateAsync(object value)
+    public async Task ValidateAsync(object? value)
     {
         var castedValue = value as T;
         if (castedValue == null)

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BasicValidatorLibrary.Abstracts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BasicValidatorLibrary;
@@ -20,15 +21,23 @@ public static class ServiceExtension
 
         return cur == generic;
     }
-
-    public static void AddValidatorsFromAssembly(this IServiceCollection serviceCollection, Assembly assembly)
+    
+    public static void AddValidatorsFromAssembly(this IServiceCollection serviceCollection, BasicValidatorOptions opt)
     {
-        var types = assembly.GetTypes()
+        var types = opt.Assembly.GetTypes()
             .Where(t => !t.IsAbstract && IsSubclassOfRawGeneric(typeof(CustomValidator<>), t))
             .ToList();
+        var validationManager = new ValidatorManager();
         foreach (var type in types)
         {
+            validationManager.AddValidator(type.BaseType!.GetGenericArguments()[0].ToString(), type);
             serviceCollection.AddTransient(type);
+        }
+
+        serviceCollection.AddSingleton(validationManager);
+        if (opt.UseGlobalControllerValidation)
+        {
+            serviceCollection.Configure<MvcOptions>(options => { options.Filters.Add<ValidatorActionFilter>(); });
         }
     }
 }
