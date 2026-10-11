@@ -6,5 +6,6 @@ public class PredicateRule<TProperty>
 {
     public Expression<Func<TProperty, bool>>? Predicate { get; set; }
     public Expression<Func<TProperty, Task<bool>>>? PredicateAsync { get; set; }
+    public Expression<Action>? Action { get; set; } = null;
     public string Message { get; set; } = "Unknown error";
 }

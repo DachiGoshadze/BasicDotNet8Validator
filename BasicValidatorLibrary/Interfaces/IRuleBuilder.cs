@@ -6,6 +6,7 @@ public interface IRuleBuilder<T, TProperty>
 {
     public Expression<Func<T, TProperty>> SelectedModelFunc { get; set; }
     public IRuleBuilder<T, TProperty> MustBe(Expression<Func<TProperty, bool>> predicate);
+    public IRuleBuilder<T, TProperty> When(Expression<Func<TProperty, bool>> condition, Expression<Action> action);
     public IRuleBuilder<T, TProperty> WithMessage(string message);
     public IRuleBuilder<T, TProperty> NotEmpty();
     public IRuleBuilder<T, TProperty> NotNull();

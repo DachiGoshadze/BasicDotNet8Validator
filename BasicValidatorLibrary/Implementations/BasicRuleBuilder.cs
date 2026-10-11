@@ -14,13 +14,26 @@ public class BasicRuleBuilder<T, TProperty>(Expression<Func<T, TProperty>> selec
 
     public IRuleBuilder<T, TProperty> MustBe(Expression<Func<TProperty, bool>> predicate)
     {
-        ValidationRules.Add(new PredicateRule<TProperty> { Predicate = predicate, Message = string.Empty });
+        ValidationRules.Add(new PredicateRule<TProperty>
+            { Predicate = predicate, Message = string.Empty });
+        return this;
+    }
+
+    public IRuleBuilder<T, TProperty> When(Expression<Func<TProperty, bool>> condition, Expression<Action> action)
+    {
+        ValidationRules.Add(new PredicateRule<TProperty>
+        {
+            Predicate = condition, Action = action, Message = string.Empty
+        });
         return this;
     }
 
     public IRuleBuilder<T, TProperty> MustBeAsync(Expression<Func<TProperty, Task<bool>>> predicate)
     {
-        ValidationRules.Add(new PredicateRule<TProperty> { PredicateAsync = predicate, Message = string.Empty });
+        ValidationRules.Add(new PredicateRule<TProperty>
+        {
+            PredicateAsync = predicate, Message = string.Empty
+        });
         return this;
     }
 

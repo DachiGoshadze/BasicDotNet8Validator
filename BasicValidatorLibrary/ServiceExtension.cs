@@ -31,7 +31,7 @@ public static class ServiceExtension
         foreach (var type in types)
         {
             validationManager.AddValidator(type.BaseType!.GetGenericArguments()[0].ToString(), type);
-            serviceCollection.AddTransient(type);
+            serviceCollection.AddSingleton(type);
         }
 
         serviceCollection.AddSingleton(validationManager);
