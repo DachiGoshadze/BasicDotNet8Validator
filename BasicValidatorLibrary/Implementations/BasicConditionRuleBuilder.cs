@@ -7,7 +7,7 @@ namespace BasicValidatorLibrary.Implementations;
 public class BasicConditionRuleBuilder<TProperty>(
     Expression<Func<TProperty, bool>> condition,
     Action action)
-    : IConditionRuleBuilder<TProperty>, IRule<TProperty>
+    : IConditionRuleBuilder<TProperty>, IProcessRunner<TProperty>
 {
     private List<ConditionView<TProperty>> Conditions { get; set; } =
         [new() { Condition = condition, Action = action }];
@@ -46,7 +46,7 @@ public class BasicConditionRuleBuilder<TProperty>(
         return this;
     }
 
-    public Task<(bool isValid, string errorMessage)> ProcessValidateAsync(TProperty value)
+    public Task<ProcessReturnModel> ProcessAsync(TProperty value)
     {
         foreach (var cond in Conditions)
         {
@@ -65,11 +65,20 @@ public class BasicConditionRuleBuilder<TProperty>(
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error executing action: {ex.Message}");
+                    return Task.FromResult(new ProcessReturnModel
+                    {
+                        IsSuccess = false,
+                        ErrorMessage = ex.Message
+                    });
                 }
                 break;
             }
         }
 
-        return Task.FromResult((true, ""));
+        return Task.FromResult(new ProcessReturnModel
+        {
+            IsSuccess = true,
+            ErrorMessage = string.Empty
+        });
     }
 }

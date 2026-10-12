@@ -6,7 +6,7 @@ using BasicValidatorLibrary.Models;
 namespace BasicValidatorLibrary.Implementations;
 
 public class BasicRuleBuilder<T, TProperty>(Expression<Func<T, TProperty>> selectedModelFunc)
-    : IRuleBuilder<T, TProperty>, IRule<T>
+    : IRuleBuilder<T, TProperty>, IProcessRunner<T>
 {
     private List<PredicateRule<TProperty>> ValidationRules { get; } = new();
 
@@ -139,7 +139,7 @@ public class BasicRuleBuilder<T, TProperty>(Expression<Func<T, TProperty>> selec
         return MustBe(x => x != null && x is string && Uri.IsWellFormedUriString(x as string, UriKind.Absolute));
     }
 
-    public async Task<(bool isValid, string errorMessage)> ProcessValidateAsync(T value)
+    public async Task<ProcessReturnModel> ProcessAsync(T value)
     {
         var propertyFunc = SelectedModelFunc.Compile();
         var propertyValue = propertyFunc(value);
@@ -148,15 +148,29 @@ public class BasicRuleBuilder<T, TProperty>(Expression<Func<T, TProperty>> selec
             if (rule.Predicate != null)
             {
                 var validate = rule.Predicate.Compile();
-                if (!validate(propertyValue)) return (false, rule.Message);
+                if (!validate(propertyValue))
+                    return new ProcessReturnModel
+                    {
+                        IsSuccess = false,
+                        ErrorMessage = rule.Message
+                    };
             }
             else if (rule.PredicateAsync != null)
             {
                 var validateAsync = rule.PredicateAsync.Compile();
-                if (!await validateAsync(propertyValue)) return (false, rule.Message);
+                if (!await validateAsync(propertyValue))
+                    return new ProcessReturnModel
+                    {
+                        IsSuccess = false,
+                        ErrorMessage = rule.Message
+                    };
             }
         }
 
-        return (true, string.Empty);
+        return new ProcessReturnModel
+        {
+            IsSuccess = true,
+            ErrorMessage = string.Empty
+        };
     }
 }

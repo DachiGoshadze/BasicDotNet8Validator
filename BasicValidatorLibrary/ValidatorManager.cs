@@ -9,4 +9,5 @@ public class ValidatorManager
         Validators[key] = type;
     }
     public Dictionary<string, Type> GetValidators() => Validators;
+    public bool ExistsValidators(string type) => Validators.ContainsKey(type);
 }

@@ -9,7 +9,7 @@ public abstract class CustomValidator<T> : IValidator
     where T : class
 {
     public bool ForceStopIfFailed { get; set; } = true;
-    private List<IRule<T>> Rules { get; set; } = [];
+    private List<IProcessRunner<T>> Rules { get; set; } = [];
 
     protected IRuleBuilder<T, TProperty> RuleFor<TProperty>(Expression<Func<T, TProperty>> validationSelectExpression)
     {
@@ -26,15 +26,24 @@ public abstract class CustomValidator<T> : IValidator
         return conditionRuleBuilder;
     }
 
+    protected ICustomValidatorSetter<T, TProperty> ValidatorFor<TProperty>(Func<T, TProperty> selector,
+        CustomValidator<TProperty> validator, ValidatorManager manager) where TProperty : class
+    {
+        var b = new BasicCustomValidatorSetter<T, TProperty>();
+        b.SetValidator(selector, validator, manager);
+        Rules.Add(b);
+        return b;
+    }
+
     public async Task<(bool, string)> ValidateAsync(T value)
     {
         foreach (var rule in Rules)
         {
-            var result = await rule.ProcessValidateAsync(value);
-            if (!result.isValid)
+            var result = await rule.ProcessAsync(value);
+            if (!result.IsSuccess)
             {
-                return (result.isValid,
-                    !string.IsNullOrEmpty(result.errorMessage) ? result.errorMessage : string.Empty);
+                return (result.IsSuccess,
+                    !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : string.Empty);
             }
         }
 
@@ -47,18 +56,19 @@ public abstract class CustomValidator<T> : IValidator
         var failed = false;
         foreach (var rule in Rules)
         {
-            var result = await rule.ProcessValidateAsync(value);
-            if (result.isValid) continue;
+            var result = await rule.ProcessAsync(value);
+            if (result.IsSuccess) continue;
             failed = true;
             if (ForceStopIfFailed)
-                throw new ValidationException(!string.IsNullOrEmpty(result.errorMessage)
-                    ? $"Validation failed: {result.errorMessage};"
+                throw new ValidationException(!string.IsNullOrEmpty(result.ErrorMessage)
+                    ? $"Validation failed: {result.ErrorMessage};"
                     : string.Empty);
-            msg += !string.IsNullOrEmpty(result.errorMessage)
-                ? "Validation failed: " + result.errorMessage
+            msg += !string.IsNullOrEmpty(result.ErrorMessage)
+                ? "Validation failed: " + result.ErrorMessage
                 : string.Empty;
         }
-        if(failed) throw new ValidationException(msg);
+
+        if (failed) throw new ValidationException(msg);
     }
 
     public async Task BaseValidateAsync(object? value)

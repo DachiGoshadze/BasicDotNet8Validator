@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BasicValidatorLibrary.Abstracts;
+using BasicValidatorLibrary.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
