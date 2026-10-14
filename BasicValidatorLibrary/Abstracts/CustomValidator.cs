@@ -17,6 +17,12 @@ public abstract class CustomValidator<T> : IValidator
         Rules.Add(ruleBuilder);
         return ruleBuilder;
     }
+    protected ICustomValidatorSetter<TProperty> RuleForEach<TProperty>(Func<T, IEnumerable<TProperty>> prop) where TProperty : class
+    {
+        var b = new MultiCustomValidatorSetter<T, TProperty>(prop);
+        Rules.Add(b);
+        return b;
+    }
 
     protected IConditionRuleBuilder<T> When(Expression<Func<T, bool>> condition, Action action)
     {
@@ -26,11 +32,9 @@ public abstract class CustomValidator<T> : IValidator
         return conditionRuleBuilder;
     }
 
-    protected ICustomValidatorSetter<T, TProperty> ValidatorFor<TProperty>(Func<T, TProperty> selector,
-        CustomValidator<TProperty> validator, ValidatorManager manager) where TProperty : class
+    protected ICustomValidatorSetter<TProperty> ValidatorFor<TProperty>(Func<T, TProperty> selector) where TProperty : class
     {
-        var b = new BasicCustomValidatorSetter<T, TProperty>();
-        b.SetValidator(selector, validator, manager);
+        var b = new BasicCustomValidatorSetter<T, TProperty>(selector);
         Rules.Add(b);
         return b;
     }
